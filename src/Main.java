@@ -10,6 +10,7 @@ public class Main {
     public static boolean isCheckingLines = true;
 
     public static void main(String[] args) {
+        System.out.println(greeting);
         Scanner scanner = new Scanner(System.in);
 
         while (isCheckingLines) {
@@ -22,7 +23,7 @@ public class Main {
             } else {
                 System.out.println("Строка не являктся палиндромом");
             }
-            System.out.println("Хотите проверить еще строку?\nВведите «да» или «нет»");
+            System.out.println("\nХотите проверить еще строку?\nВведите «да» или «нет»");
 
             String answer;
             while (scanner.hasNext()) {
@@ -42,31 +43,8 @@ public class Main {
     }
 
     public static boolean palindromeCheck(String line) {
-        List<Character> list = new LinkedList<>();
-        for (Character character : line.toCharArray()) {
-            list.add(character);
-        }
+        StringBuilder lineWithoutWhiteSpaces = new StringBuilder(line.replaceAll("\\s", ""));
 
-        ListIterator<Character> listIteratorFromStart = list.listIterator();
-        ListIterator<Character> listIteratorFromEnd = list.listIterator(list.size());
-        boolean isArrayEven = list.size() % 2 == 0;
-        if (isArrayEven) {
-            for (int i = 0; i < list.size() / 2; i++) {
-                if (listIteratorFromStart.hasNext() && listIteratorFromEnd.hasNext()) {
-                    if (listIteratorFromStart.next().equals(listIteratorFromEnd.next())) {
-                        return false;
-                    }
-                }
-            }
-        } else {
-            for (int i = 0; i < list.size() / 2 + 1; i++) {
-                if (listIteratorFromStart.hasNext() && listIteratorFromEnd.hasNext()) {
-                    if (listIteratorFromStart.next().equals(listIteratorFromEnd.next())) {
-                        return false;
-                    }
-                }
-            }
-        }
-        return lineIsPalindrome;
+        return lineWithoutWhiteSpaces.toString().equals(lineWithoutWhiteSpaces.reverse().toString());
     }
 }
